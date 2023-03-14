@@ -7,7 +7,7 @@ export const signin = async(req, res)=>{
     const {email, password} = req.body
     try {
       const oldUser = await UserModel.findOne({email})  
-      if(oldUser){
+      if(!oldUser){
         return res.status(400).json({message:"User is not available"})
       }
       const isPasswordCorrect = await bcrypt.compare(password, oldUser.password)
